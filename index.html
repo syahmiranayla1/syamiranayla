@@ -3,175 +3,405 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Profil Pribadi - Nama Anda</title>
+<title>syahmira</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
-  :root {
-    --primary: #2563eb;
-    --dark: #1e293b;
-    --light: #f1f5f9;
-    --card: #ffffff;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: "Segoe UI", Arial, sans-serif;
-    background: var(--light);
-    color: var(--dark);
+:root {
+    --bg: #fde8ef;
+    --surface: #fff5f8;
+    --surface-2: #fbd5e2;
+    --line: rgba(122, 20, 66, 0.16);
+    --aqua: #b0114f;
+    --sun: #c2255c;
+    --sun-hover: #a81c4c;
+    --text: #3a0f22;
+    --muted: #7a4a5e;
+    --radius-lg: 28px;
+    --radius-md: 18px;
+    --radius-sm: 12px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Figtree', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
     line-height: 1.6;
-  }
-  header {
-    background: linear-gradient(135deg, #2563eb, #7c3aed);
-    color: #fff;
-    text-align: center;
-    padding: 50px 20px 40px;
-  }
-  header img.profil {
-    width: 140px; height: 140px;
+    overflow-x: hidden;
+}
+
+/* Riak air: cincin gelombang khas billabong di sudut halaman */
+body::before {
+    content: "";
+    position: fixed;
+    top: -260px;
+    right: -260px;
+    width: 780px;
+    height: 780px;
     border-radius: 50%;
-    object-fit: cover;
-    border: 5px solid #fff;
-    background: #cbd5e1;
-    margin-bottom: 15px;
-  }
-  header h1 { font-size: 2rem; }
-  header p { opacity: .9; }
-  nav {
-    background: var(--dark);
-    position: sticky; top: 0; z-index: 10;
-    text-align: center;
-  }
-  nav a {
-    display: inline-block;
-    color: #fff;
+    background: repeating-radial-gradient(circle at center,
+        transparent 0 46px,
+        rgba(194, 37, 92, 0.12) 46px 48px);
+    -webkit-mask-image: radial-gradient(circle, #000 20%, transparent 70%);
+            mask-image: radial-gradient(circle, #000 20%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+:focus-visible {
+    outline: 3px solid var(--sun);
+    outline-offset: 3px;
+    border-radius: 8px;
+}
+
+/* ---------- Navbar ---------- */
+nav {
+    position: sticky;
+    top: 16px;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    max-width: 1160px;
+    margin: 16px auto 0;
+    padding: 10px 14px 10px 28px;
+    background: rgba(253, 232, 239, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+}
+
+nav h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 4px;
+}
+
+nav a {
+    display: block;
+    padding: 8px 16px;
+    border-radius: 999px;
+    color: var(--muted);
     text-decoration: none;
-    padding: 14px 22px;
-    transition: background .2s;
-  }
-  nav a:hover { background: var(--primary); }
-  main { max-width: 1000px; margin: 0 auto; padding: 30px 20px; }
-  section {
-    background: var(--card);
-    border-radius: 14px;
-    padding: 28px;
-    margin-bottom: 28px;
-    box-shadow: 0 2px 10px rgba(0,0,0,.07);
-  }
-  section h2 {
-    color: var(--primary);
-    margin-bottom: 18px;
-    padding-bottom: 8px;
-    border-bottom: 3px solid var(--light);
-  }
-  table { width: 100%; border-collapse: collapse; }
-  td { padding: 10px 8px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
-  td:first-child { width: 200px; font-weight: 600; }
-  .hobi { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
-  .hobi div {
-    background: var(--light);
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    transition: transform .2s;
-  }
-  .hobi div:hover { transform: translateY(-4px); }
-  .hobi .ikon { font-size: 2.2rem; display: block; margin-bottom: 6px; }
-  .galeri { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
-  .galeri img, .galeri video {
-    width: 100%; height: 200px;
-    object-fit: cover;
-    border-radius: 12px;
-    background: #cbd5e1;
-  }
-  .galeri figure { margin: 0; }
-  .galeri figcaption { text-align: center; font-size: .9rem; margin-top: 6px; color: #64748b; }
-  h3.sub { margin: 24px 0 12px; }
-  .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
-  .video-grid video { width: 100%; border-radius: 12px; background: #000; }
-  footer { text-align: center; padding: 25px; color: #64748b; font-size: .9rem; }
-  @media (max-width: 600px) {
-    td:first-child { width: 120px; }
-    nav a { padding: 12px 12px; }
-  }
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+}
+
+nav a:hover { color: var(--text); background: rgba(194, 37, 92, 0.09); }
+
+nav a[aria-current="page"] {
+    background: var(--sun);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 64px;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 72px 24px 96px;
+    align-items: center;
+    min-height: calc(100vh - 100px);
+}
+
+.hero-text { animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    margin-bottom: 24px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    color: var(--aqua);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.hero-text h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.8rem, 6vw, 4.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.hero-text p {
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 46ch;
+    margin-bottom: 36px;
+}
+
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 30px;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.btn:active { transform: scale(0.97); }
+
+.btn-primary { background: var(--sun); color: #ffffff; }
+.btn-primary:hover { background: var(--sun-hover); }
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1.5px solid var(--line);
+}
+.btn-secondary:hover { border-color: var(--aqua); color: var(--aqua); }
+
+/* ---------- Panel tugas ---------- */
+.hero-dashboard {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    animation: rise 0.8s 0.15s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.dashboard-header { margin-bottom: 24px; }
+
+.dashboard-header h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+}
+
+.dashboard-header p { font-size: 0.9rem; color: var(--muted); }
+
+.task-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.task-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    position: relative;
+    padding: 18px;
+    background: var(--surface-2);
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    color: var(--text);
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+
+.task-card .task-icon {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.75);
+    font-size: 1.15rem;
+}
+
+.task-card h4 { font-size: 0.95rem; font-weight: 600; }
+.task-card p  { font-size: 0.82rem; color: var(--muted); }
+
+/* Penanda tautan keluar */
+.task-card[target="_blank"]::after {
+    content: "\2197";
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    font-size: 0.95rem;
+    color: var(--muted);
+    transition: color 0.2s, transform 0.2s;
+}
+
+.task-card:hover {
+    border-color: var(--aqua);
+    background: #f8c2d5;
+    transform: translateY(-2px);
+}
+
+.task-card[target="_blank"]:hover::after {
+    color: var(--aqua);
+    transform: translate(2px, -2px);
+}
+
+/* Tugas Akhir: satu-satunya blok berwarna penuh */
+.task-card.highlight {
+    grid-column: span 2;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    padding: 22px;
+    background: var(--sun);
+    color: #ffffff;
+}
+
+.task-card.highlight .task-icon { width: 52px; height: 52px; font-size: 1.5rem; background: rgba(255, 255, 255, 0.22); }
+.task-card.highlight h4 { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700; }
+.task-card.highlight p  { color: rgba(255, 255, 255, 0.9); font-size: 0.9rem; }
+.task-card.highlight:hover { background: var(--sun-hover); border-color: transparent; }
+
+@keyframes rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Responsif ---------- */
+@media (max-width: 960px) {
+    .hero { grid-template-columns: 1fr; gap: 48px; padding-top: 48px; min-height: 0; }
+    nav { margin-left: 12px; margin-right: 12px; }
+}
+
+@media (max-width: 640px) {
+    nav {
+        flex-direction: column;
+        gap: 8px;
+        padding: 14px 12px;
+        border-radius: 28px;
+    }
+    nav ul { flex-wrap: wrap; justify-content: center; }
+    nav a { padding: 7px 13px; font-size: 0.85rem; }
+    .hero { padding: 36px 16px 64px; }
+    .hero-dashboard { padding: 22px 16px; }
+    .task-grid { grid-template-columns: 1fr; }
+    .task-card.highlight { grid-column: span 1; }
+    .btn { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+}
 </style>
+
 </head>
+
 <body>
 
-<header>
-  <img class="profil" src="foto/profil.jpg" alt="Foto Profil">
-  <h1>Nama Lengkap Anda</h1>
-  <p>Pelajar / Mahasiswa / Pekerja &mdash; Kota Anda</p>
-</header>
-
 <nav>
-  <a href="#biodata">Biodata</a>
-  <a href="#hobi">Hobi</a>
-  <a href="#galeri">Galeri</a>
+    <h1>syahmira</h1>
+
+    <ul>
+        <li><a href="index.html" aria-current="page">Indexs</a></li>
+        <li><a href="biodata.html">Biodata</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="video.html">Video</a></li>
+    </ul>
 </nav>
 
-<main>
+<section class="hero">
 
-  <!-- BIODATA -->
-  <section id="biodata">
-    <h2>📋 Biodata Pribadi</h2>
-    <table>
-      <tr><td>Nama Lengkap</td><td>syahmira maulida nayla</td></tr>
-      <tr><td>Nama Panggilan</td><td>syahmira</td></tr>
-      <tr><td>Tempat, Tanggal Lahir</td><td>Kota, 30 april 2005 </td></tr>
-      <tr><td>Jenis Kelamin</td><td>Laki-laki / Perempuan</td></tr>
-      <tr><td>Agama</td><td>islam </td></tr>
-      <tr><td>Alamat</td><td>Jl.jeruk gg kestela 7</td></tr>
-      <tr><td>Pendidikan</td><td>universitas lambung mangkurat </td></tr>
-      <tr><td>Email</td><td>syahmiranayla1@gmail.com</td></tr>
-      <tr><td>No. HP</td><td>089523756607</td></tr>
-      <tr><td>Cita-cita</td><td>menjadi wanita kaya raya </td></tr>
-    </table>
-  </section>
+    <!-- Kiri -->
+    <div class="hero-text">
+        <span class="badge">Selamat Datang 👋</span>
+        <h2>Website Portofolio</h2>
+        <p>
+            Halaman personal ini dikembangkan untuk mendokumentasikan biodata diri, galeri visual, video kreatif, serta repositori pengerjaan tugas akademik secara interaktif.
+        </p>
 
-  <!-- HOBI -->
-  <section id="hobi">
-    <h2>🎯 Hobi</h2>
-    <div class="hobi">
-      <div><span class="ikon">🎵</span>Mendengarkan Musik</div>
-      <div><span class="ikon">⚽</span>Olahraga</div>
-      <div><span class="ikon">🎮</span>Bermain Game</div>
-    </div>
-  </section>
-
-  <!-- GALERI -->
-  <section id="galeri">
-    <h2>🖼️ Galeri</h2>
-
-    <h3 class="sub">Foto</h3>
-    <div class="galeri">
-      <figure><img src="foto/foto1.jpg" alt="Foto 1"><figcaption>Foto 1</figcaption></figure>
-      <figure><img src="foto/foto2.jpg" alt="Foto 2"><figcaption>Foto 2</figcaption></figure>
-      <figure><img src="foto/foto3.jpg" alt="Foto 3"><figcaption>Foto 3</figcaption></figure>
-      <figure><img src="foto/foto4.jpg" alt="Foto 4"><figcaption>Foto 4</figcaption></figure>
+        <div class="hero-actions">
+            <a href="biodata.html" class="btn btn-primary">Lihat Profil</a>
+            <a href="produksi.html" class="btn btn-secondary">Tugas Akhir</a>
+        </div>
     </div>
 
-    <h3 class="sub">Video</h3>
-    <div class="video-grid">
-      <figure>
-        <video controls preload="metadata">
-          <source src="video/video1.mp4" type="video/mp4">
-          Browser Anda tidak mendukung video.
-        </video>
-        <figcaption>Video 1</figcaption>
-      </figure>
-      <figure>
-        <video controls preload="metadata">
-          <source src="video/video2.mp4" type="video/mp4">
-          Browser Anda tidak mendukung video.
-        </video>
-        <figcaption>Video 2</figcaption>
-      </figure>
+    <!-- Kanan: Dashboard Interaktif Tugas -->
+    <div class="hero-dashboard">
+        <div class="dashboard-header">
+            <h3>✨ Kumpulan Tugas & Sajian Data</h3>
+            <p>Silakan pilih tugas yang ingin Anda tinjau di bawah ini.</p>
+        </div>
+
+        <div class="task-grid">
+            <a href="tugas2.html" class="task-card">
+                <div class="task-icon">📋</div>
+                <div>
+                    <h4>Tugas 2</h4>
+                    <p>Form Demografi</p>
+                </div>
+            </a>
+
+            <a href="https://forms.gle/tZapLYbHtzEsJtAt6" target="_blank" rel="noopener" class="task-card">
+                <div class="task-icon">📝</div>
+                <div>
+                    <h4>Tugas 3</h4>
+                    <p>Form Kuesioner</p>
+                </div>
+            </a>
+
+            <a href="https://datastudio.google.com/reporting/f91eacaa-d139-4cc0-a2da-b38ad170e85d" target="_blank" rel="noopener" class="task-card">
+                <div class="task-icon">📊</div>
+                <div>
+                    <h4>Sajian Data T3</h4>
+                    <p>Looker Studio</p>
+                </div>
+            </a>
+
+            <a href="https://forms.gle/gz7KY2BzbjwkswS7A" target="_blank" rel="noopener" class="task-card">
+                <div class="task-icon">✍️</div>
+                <div>
+                    <h4>Tugas 4</h4>
+                    <p>Form Input Baru</p>
+                </div>
+            </a>
+
+            <a href="sajian data tugas 4.html" class="task-card">
+                <div class="task-icon">💻</div>
+                <div>
+                    <h4>Sajian Data T4</h4>
+                    <p>Visualisasi Web</p>
+                </div>
+            </a>
+
+            <a href="produksi.html" class="task-card highlight">
+                <div class="task-icon">🚀</div>
+                <div>
+                    <h4>Tugas Akhir</h4>
+                    <p>Karya Produksi Akhir Akademik</p>
+                </div>
+            </a>
+        </div>
     </div>
-  </section>
 
-</main>
-
-<footer>
-  &copy; 2026 Nama Lengkap Anda. Semua hak dilindungi.
-</footer>
+</section>
 
 </body>
 </html>
