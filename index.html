@@ -1,56 +1,48 @@
-(function () {
-    var current = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+/* Judul dengan garis bergelombang */
+h1, h2, h3 {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    color: var(--pink-deep);
+}
+h2 {
+    text-decoration: underline wavy var(--pink);
+    text-underline-offset: 8px;
+    text-decoration-thickness: 3px;
+}
 
-    var menu = [
-        { label: "Beranda", href: "index.html" },
-        { label: "Biodata", href: "biodata.html" },
-        { label: "Gallery", href: "gallery.html" },
-        { label: "Video",   href: "video.html" },
-        { label: "Tugas",   children: [
-            { label: "Tugas 1", href: "tugas1.html" },
-            { label: "Tugas 2", href: "tugas2.html" },
-            { label: "Tugas 3", href: "tugas3.html" }
-        ]}
-    ];
+/* Kartu stiker */
+.card {
+    background: var(--surface);
+    border: 3px solid var(--pink);
+    border-radius: 28px;
+    padding: 24px;
+    box-shadow: 0 6px 0 var(--pink-shadow);
+    transition: transform .3s var(--pop), box-shadow .3s;
+}
+.card:hover { transform: translateY(-6px) rotate(-1deg); box-shadow: 0 12px 0 var(--pink-shadow); }
 
-    function link(item) {
-        var active = item.href === current ? ' aria-current="page"' : "";
-        return '<a href="' + item.href + '"' + active + '>' + item.label + '</a>';
-    }
+/* Tombol kenyal */
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border: 3px solid var(--pink-deep);
+    border-radius: 999px;
+    background: var(--pink);
+    color: #fff;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow: 0 5px 0 var(--pink-deep);
+    transition: transform .2s var(--pop), box-shadow .2s;
+}
+.btn:hover  { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 0 var(--pink-deep); }
+.btn:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--pink-deep); }
 
-    var html = menu.map(function (item) {
-        if (!item.children) return '<li>' + link(item) + '</li>';
-
-        var isActive = item.children.some(function (c) { return c.href === current; });
-        return '<li class="dropdown">' +
-            '<button type="button" class="dropdown-toggle' + (isActive ? ' active' : '') +
-            '" aria-haspopup="true" aria-expanded="false">' + item.label + '</button>' +
-            '<ul class="submenu">' +
-            item.children.map(function (c) { return '<li>' + link(c) + '</li>'; }).join("") +
-            '</ul></li>';
-    }).join("");
-
-    var nav = document.getElementById("site-nav");
-    if (!nav) return;
-    nav.innerHTML = '<a href="index.html" class="brand">syahmira</a><ul>' + html + '</ul>';
-
-    // Buka/tutup dropdown dengan klik atau sentuh
-    var dd = nav.querySelector(".dropdown");
-    var btn = dd.querySelector(".dropdown-toggle");
-
-    function setOpen(open) {
-        dd.classList.toggle("open", open);
-        btn.setAttribute("aria-expanded", open);
-    }
-
-    btn.addEventListener("click", function (e) {
-        e.stopPropagation();
-        setOpen(!dd.classList.contains("open"));
-    });
-    document.addEventListener("click", function (e) {
-        if (!dd.contains(e.target)) setOpen(false);
-    });
-    document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") { setOpen(false); btn.focus(); }
-    });
-})();
+/* Gambar di gallery */
+.gallery img {
+    border: 4px solid #fff;
+    border-radius: 20px;
+    box-shadow: 0 6px 0 var(--pink-shadow);
+    transition: transform .3s var(--pop);
+}
+.gallery img:hover { transform: scale(1.06) rotate(2deg); }
