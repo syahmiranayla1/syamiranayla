@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Biodata</title>
+  <title>Gallery</title>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Pacifico&display=swap" rel="stylesheet">
   <style>
     * {
@@ -79,17 +79,24 @@
       box-shadow: 0 5px 0 #e68a00, 0 8px 14px rgba(230, 138, 0, 0.3);
     }
 
-    /* ====== JUDUL HALAMAN ====== */
+    /* ====== JUDUL ====== */
     .judul {
       position: relative;
       z-index: 2;
       text-align: center;
-      margin: 10px 0 30px;
+      margin: 10px 16px 35px;
+    }
+
+    .judul .maskot {
+      display: block;
+      font-size: 4rem;
+      animation: loncat 1.6s ease-in-out infinite;
     }
 
     .judul h1 {
       font-family: 'Pacifico', cursive;
-      font-size: 3rem;
+      font-size: 3.2rem;
+      line-height: 1.2;
       background: linear-gradient(90deg, #ff4081, #c2185b, #ff80ab);
       -webkit-background-clip: text;
       background-clip: text;
@@ -97,102 +104,159 @@
     }
 
     .judul p {
-      font-size: 1.15rem;
+      font-size: 1.2rem;
     }
 
-    /* ====== KARTU BIODATA ====== */
-    .kartu {
+    /* ====== GRID FOTO ====== */
+    .grid {
       position: relative;
       z-index: 2;
+      max-width: 960px;
+      margin: 0 auto 70px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 34px 26px;
+    }
+
+    /* bingkai polaroid */
+    .polaroid {
+      position: relative;
       background: #fff;
-      border: 5px dashed #ff6fa5;
-      border-radius: 40px;
-      padding: 50px 40px 40px;
-      max-width: 620px;
-      margin: 0 auto 60px;
-      box-shadow: 0 12px 0 #f48fb1, 0 20px 30px rgba(194, 24, 91, 0.25);
+      padding: 14px 14px 16px;
+      border-radius: 14px;
+      border: 3px dashed #ff9ec4;
+      box-shadow: 0 8px 0 #f48fb1, 0 14px 20px rgba(194, 24, 91, 0.22);
+      transition: transform 0.3s;
+      cursor: pointer;
     }
 
-    .hiasan {
+    .polaroid:nth-child(4n+1) { transform: rotate(-3deg); }
+    .polaroid:nth-child(4n+2) { transform: rotate(2deg); }
+    .polaroid:nth-child(4n+3) { transform: rotate(-1.5deg); }
+    .polaroid:nth-child(4n+4) { transform: rotate(3deg); }
+
+    .polaroid:hover {
+      transform: rotate(0deg) scale(1.08) translateY(-8px);
+      z-index: 3;
+    }
+
+    /* selotip */
+    .polaroid::before {
+      content: "";
       position: absolute;
-      font-size: 2.2rem;
-      animation: kedip 2s ease-in-out infinite;
+      top: -14px;
+      left: 50%;
+      width: 80px;
+      height: 26px;
+      transform: translateX(-50%) rotate(-3deg);
+      background: rgba(255, 213, 79, 0.75);
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
     }
-    .h1 { top: -22px; left: -18px; }
-    .h2 { top: -20px; right: -16px; animation-delay: 0.5s; }
-    .h3 { bottom: -22px; left: 30px; animation-delay: 1s; }
-    .h4 { bottom: -20px; right: 28px; animation-delay: 1.5s; }
 
-    /* foto profil */
-    .foto {
-      width: 150px;
-      height: 150px;
-      margin: -110px auto 15px;
-      border-radius: 50%;
-      border: 6px solid #fff;
-      background: linear-gradient(135deg, #ffd1e3, #ff9ec4);
-      box-shadow: 0 0 0 5px #ff6fa5, 0 8px 16px rgba(194, 24, 91, 0.3);
+    .gambar {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 8px;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 5rem;
-      overflow: hidden;
-      animation: loncat 2s ease-in-out infinite;
     }
 
-    .foto img {
+    .gambar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
-    .nama {
+    .p1 { background: linear-gradient(135deg, #ffd1e3, #ff9ec4); }
+    .p2 { background: linear-gradient(135deg, #fff3c4, #ffd54f); }
+    .p3 { background: linear-gradient(135deg, #d9f2ff, #8fd3ff); }
+    .p4 { background: linear-gradient(135deg, #e4ffd9, #9be37f); }
+    .p5 { background: linear-gradient(135deg, #eadcff, #bb9bff); }
+    .p6 { background: linear-gradient(135deg, #ffe4cf, #ffb27a); }
+
+    .keterangan {
       text-align: center;
-      font-size: 1.9rem;
       font-weight: 800;
-      color: #c2185b;
-    }
-
-    .sapaan {
-      text-align: center;
-      margin-bottom: 25px;
       font-size: 1.1rem;
-    }
-
-    /* daftar biodata */
-    .data {
-      list-style: none;
-    }
-
-    .data li {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: #fff0f5;
-      border-radius: 20px;
-      padding: 10px 18px;
-      margin-bottom: 12px;
-      border-left: 8px solid #ff6fa5;
-      transition: transform 0.2s;
-    }
-
-    .data li:hover {
-      transform: translateX(8px) rotate(-0.5deg);
-      background: #ffe0ec;
-    }
-
-    .data .ikon {
-      font-size: 1.6rem;
-    }
-
-    .data .label {
-      font-weight: 700;
-      min-width: 130px;
+      margin-top: 10px;
       color: #c2185b;
     }
 
-    .data .isi {
+    .tanggal {
+      text-align: center;
+      font-size: 0.85rem;
       font-weight: 500;
+      opacity: 0.8;
+    }
+
+    .stiker-pojok {
+      position: absolute;
+      bottom: -14px;
+      right: -10px;
+      font-size: 1.9rem;
+      animation: kedip 2s ease-in-out infinite;
+    }
+
+    /* ====== POP-UP FOTO BESAR ====== */
+    .popup {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      background: rgba(122, 31, 71, 0.65);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .popup.buka {
+      display: flex;
+    }
+
+    .popup-isi {
+      position: relative;
+      background: #fff;
+      border: 5px dashed #ff6fa5;
+      border-radius: 28px;
+      padding: 18px 18px 20px;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      animation: muncul 0.35s ease;
+    }
+
+    .popup-isi .gambar {
+      font-size: 9rem;
+    }
+
+    .popup-isi .keterangan {
+      font-size: 1.4rem;
+    }
+
+    .tutup {
+      position: absolute;
+      top: -18px;
+      right: -14px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      background: linear-gradient(135deg, #ff6fa5, #ec407a);
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 0 #c2185b;
+    }
+
+    .tutup:hover {
+      transform: scale(1.1) rotate(10deg);
     }
 
     /* ====== ELEMEN MELAYANG ====== */
@@ -205,36 +269,60 @@
       opacity: 0.85;
     }
 
-    .melayang:nth-of-type(1) { left: 5%;  font-size: 2rem;   animation-duration: 12s; animation-delay: 0s; }
-    .melayang:nth-of-type(2) { left: 18%; font-size: 1.4rem; animation-duration: 9s;  animation-delay: 2s; }
-    .melayang:nth-of-type(3) { left: 32%; font-size: 2.4rem; animation-duration: 14s; animation-delay: 5s; }
-    .melayang:nth-of-type(4) { left: 48%; font-size: 1.6rem; animation-duration: 10s; animation-delay: 1s; }
-    .melayang:nth-of-type(5) { left: 63%; font-size: 2rem;   animation-duration: 13s; animation-delay: 6s; }
-    .melayang:nth-of-type(6) { left: 76%; font-size: 1.5rem; animation-duration: 9s;  animation-delay: 3s; }
-    .melayang:nth-of-type(7) { left: 88%; font-size: 2.3rem; animation-duration: 15s; animation-delay: 0s; }
-    .melayang:nth-of-type(8) { left: 95%; font-size: 1.7rem; animation-duration: 11s; animation-delay: 4s; }
+    .melayang:nth-of-type(1)  { left: 5%;  font-size: 2rem;   animation-duration: 12s; animation-delay: 0s; }
+    .melayang:nth-of-type(2)  { left: 15%; font-size: 1.4rem; animation-duration: 9s;  animation-delay: 2s; }
+    .melayang:nth-of-type(3)  { left: 25%; font-size: 2.4rem; animation-duration: 14s; animation-delay: 5s; }
+    .melayang:nth-of-type(4)  { left: 38%; font-size: 1.6rem; animation-duration: 10s; animation-delay: 1s; }
+    .melayang:nth-of-type(5)  { left: 50%; font-size: 2rem;   animation-duration: 13s; animation-delay: 6s; }
+    .melayang:nth-of-type(6)  { left: 62%; font-size: 1.5rem; animation-duration: 9s;  animation-delay: 3s; }
+    .melayang:nth-of-type(7)  { left: 72%; font-size: 2.3rem; animation-duration: 15s; animation-delay: 0s; }
+    .melayang:nth-of-type(8)  { left: 82%; font-size: 1.7rem; animation-duration: 11s; animation-delay: 4s; }
+    .melayang:nth-of-type(9)  { left: 91%; font-size: 2rem;   animation-duration: 12s; animation-delay: 7s; }
+    .melayang:nth-of-type(10) { left: 45%; font-size: 1.3rem; animation-duration: 8s;  animation-delay: 8s; }
+
+    /* ====== AWAN ====== */
+    .awan {
+      position: fixed;
+      z-index: 1;
+      font-size: 4rem;
+      opacity: 0.9;
+      pointer-events: none;
+      animation: geser 30s linear infinite;
+    }
+    .awan.a1 { top: 18%; left: -10%; }
+    .awan.a2 { top: 60%; left: -15%; font-size: 5.5rem; animation-duration: 45s; animation-delay: -15s; }
 
     /* ====== ANIMASI ====== */
     @keyframes naik {
       0%   { transform: translateY(0) rotate(0deg); }
       100% { transform: translateY(-115vh) rotate(360deg); }
     }
+    @keyframes geser {
+      from { transform: translateX(0); }
+      to   { transform: translateX(130vw); }
+    }
     @keyframes loncat {
-      0%, 100% { transform: translateY(0); }
-      50%      { transform: translateY(-10px); }
+      0%, 100% { transform: translateY(0) scale(1); }
+      50%      { transform: translateY(-12px) scale(1.08); }
     }
     @keyframes kedip {
       0%, 100% { transform: scale(1) rotate(-8deg); }
       50%      { transform: scale(1.35) rotate(8deg); }
     }
+    @keyframes muncul {
+      from { transform: scale(0.6) rotate(-6deg); opacity: 0; }
+      to   { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
 
     /* ====== RESPONSIF ====== */
-    @media (max-width: 640px) {
-      .kartu { margin: 0 16px 60px; padding: 50px 20px 30px; }
-      .judul h1 { font-size: 2.2rem; }
-      .data li { flex-wrap: wrap; }
-      .data .label { min-width: auto; }
+    @media (max-width: 600px) {
+      .judul h1 { font-size: 2.3rem; }
       nav a { padding: 8px 16px; font-size: 0.9rem; }
+      .grid { grid-template-columns: repeat(2, 1fr); gap: 28px 14px; padding: 0 14px; }
+      .polaroid { padding: 8px 8px 12px; }
+      .gambar { font-size: 3.2rem; }
+      .keterangan { font-size: 0.95rem; }
+      .popup-isi .gambar { font-size: 6rem; }
     }
   </style>
 </head>
@@ -249,13 +337,19 @@
   <span class="melayang">✨</span>
   <span class="melayang">🦋</span>
   <span class="melayang">🌷</span>
+  <span class="melayang">💕</span>
+  <span class="melayang">🫧</span>
+
+  <!-- awan -->
+  <span class="awan a1">☁️</span>
+  <span class="awan a2">☁️</span>
 
   <!-- menu -->
   <nav>
     <ul>
       <li><a href="index.html">🏠 Beranda</a></li>
-      <li><a href="biodata.html" class="aktif">🧸 Biodata</a></li>
-      <li><a href="gallery.html">🌸 Gallery</a></li>
+      <li><a href="biodata.html">🧸 Biodata</a></li>
+      <li><a href="gallery.html" class="aktif">🌸 Gallery</a></li>
       <li><a href="video.html">🎬 Video</a></li>
       <li><a href="tugas.html">📝 Tugas Selanjutnya</a></li>
     </ul>
@@ -263,71 +357,116 @@
 
   <!-- judul -->
   <div class="judul">
-    <h1>Biodata</h1>
-    <p>Kenalan yuk! 💕</p>
+    <span class="maskot">📸</span>
+    <h1>Gallery</h1>
+    <p>Kumpulan momen lucu & kenangan manis 💕</p>
   </div>
 
-  <!-- kartu biodata -->
-  <div class="kartu">
-    <span class="hiasan h1">💖</span>
-    <span class="hiasan h2">⭐</span>
-    <span class="hiasan h3">🎀</span>
-    <span class="hiasan h4">✨</span>
+  <!--
+    CARA PASANG FOTO:
+    Ganti emoji di dalam <div class="gambar ..."> dengan:
+    <img src="foto1.jpg" alt="Foto 1">
+    Taruh file foto di folder yang sama dengan gallery.html
+  -->
+  <div class="grid">
 
-    <!-- Foto: ganti emoji 🐰 dengan <img src="fotokamu.jpg" alt="Foto"> -->
-    <div class="foto">🐰</div>
+    <div class="polaroid">
+      <div class="gambar p1">🌷</div>
+      <p class="keterangan">Foto 1</p>
+      <p class="tanggal">1 Januari 2026</p>
+      <span class="stiker-pojok">💖</span>
+    </div>
 
-    <h2 class="nama">Nama Lengkap Kamu</h2>
-    <p class="sapaan">Halo, salam kenal! 🌷</p>
+    <div class="polaroid">
+      <div class="gambar p2">🎂</div>
+      <p class="keterangan">Foto 2</p>
+      <p class="tanggal">14 Februari 2026</p>
+      <span class="stiker-pojok">⭐</span>
+    </div>
 
-    <ul class="data">
-      <li>
-        <span class="ikon">🎂</span>
-        <span class="label">Tempat, Tgl Lahir</span>
-        <span class="isi">: Banjarbaru, 1 Januari 2008</span>
-      </li>
-      <li>
-        <span class="ikon">🚻</span>
-        <span class="label">Jenis Kelamin</span>
-        <span class="isi">: Perempuan</span>
-      </li>
-      <li>
-        <span class="ikon">🕌</span>
-        <span class="label">Agama</span>
-        <span class="isi">: Islam</span>
-      </li>
-      <li>
-        <span class="ikon">🏫</span>
-        <span class="label">Sekolah / Kelas</span>
-        <span class="isi">: Nama Sekolah / Kelas XI</span>
-      </li>
-      <li>
-        <span class="ikon">🏡</span>
-        <span class="label">Alamat</span>
-        <span class="isi">: Banjarbaru, Kalimantan Selatan</span>
-      </li>
-      <li>
-        <span class="ikon">📱</span>
-        <span class="label">No. HP</span>
-        <span class="isi">: 08xx-xxxx-xxxx</span>
-      </li>
-      <li>
-        <span class="ikon">💌</span>
-        <span class="label">Email</span>
-        <span class="isi">: emailkamu@gmail.com</span>
-      </li>
-      <li>
-        <span class="ikon">🎨</span>
-        <span class="label">Hobi</span>
-        <span class="isi">: Menggambar, membaca, mendengarkan musik</span>
-      </li>
-      <li>
-        <span class="ikon">🌟</span>
-        <span class="label">Cita-cita</span>
-        <span class="isi">: Programmer</span>
-      </li>
-    </ul>
+    <div class="polaroid">
+      <div class="gambar p3">🏖️</div>
+      <p class="keterangan">Foto 3</p>
+      <p class="tanggal">20 Maret 2026</p>
+      <span class="stiker-pojok">🎀</span>
+    </div>
+
+    <div class="polaroid">
+      <div class="gambar p4">🌳</div>
+      <p class="keterangan">Foto 4</p>
+      <p class="tanggal">5 April 2026</p>
+      <span class="stiker-pojok">🦋</span>
+    </div>
+
+    <div class="polaroid">
+      <div class="gambar p5">🎨</div>
+      <p class="keterangan">Foto 5</p>
+      <p class="tanggal">17 Mei 2026</p>
+      <span class="stiker-pojok">✨</span>
+    </div>
+
+    <div class="polaroid">
+      <div class="gambar p6">🍰</div>
+      <p class="keterangan">Foto 6</p>
+      <p class="tanggal">9 Juni 2026</p>
+      <span class="stiker-pojok">💗</span>
+    </div>
+
+    <div class="polaroid">
+      <div class="gambar p1">🐰</div>
+      <p class="keterangan">Foto 7</p>
+      <p class="tanggal">23 Juli 2026</p>
+      <span class="stiker-pojok">🌸</span>
+    </div>
+
+    <div class="polaroid">
+      <div class="gambar p3">🎈</div>
+      <p class="keterangan">Foto 8</p>
+      <p class="tanggal">17 Agustus 2026</p>
+      <span class="stiker-pojok">💕</span>
+    </div>
+
   </div>
+
+  <!-- pop-up foto besar -->
+  <div class="popup" id="popup">
+    <div class="popup-isi">
+      <button class="tutup" id="tutup" aria-label="Tutup">✕</button>
+      <div id="popup-gambar"></div>
+      <p class="keterangan" id="popup-judul"></p>
+      <p class="tanggal" id="popup-tanggal"></p>
+    </div>
+  </div>
+
+  <script>
+    var popup = document.getElementById('popup');
+    var popupGambar = document.getElementById('popup-gambar');
+    var popupJudul = document.getElementById('popup-judul');
+    var popupTanggal = document.getElementById('popup-tanggal');
+
+    document.querySelectorAll('.polaroid').forEach(function (kartu) {
+      kartu.addEventListener('click', function () {
+        var gambar = kartu.querySelector('.gambar').cloneNode(true);
+        popupGambar.innerHTML = '';
+        popupGambar.appendChild(gambar);
+        popupJudul.textContent = kartu.querySelector('.keterangan').textContent;
+        popupTanggal.textContent = kartu.querySelector('.tanggal').textContent;
+        popup.classList.add('buka');
+      });
+    });
+
+    function tutupPopup() {
+      popup.classList.remove('buka');
+    }
+
+    document.getElementById('tutup').addEventListener('click', tutupPopup);
+    popup.addEventListener('click', function (e) {
+      if (e.target === popup) tutupPopup();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') tutupPopup();
+    });
+  </script>
 
 </body>
 </html>
