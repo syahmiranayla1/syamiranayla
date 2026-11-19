@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Beranda</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Pacifico&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -12,16 +13,33 @@
     }
 
     body {
-      font-family: Arial, sans-serif;
-      background-color: #ffc0cb; /* merah muda */
-      color: #4a1f2c;
+      font-family: 'Baloo 2', Arial, sans-serif;
       min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      color: #7a1f47;
+      background:
+        radial-gradient(circle at 20% 20%, #ffe0ec 0, transparent 40%),
+        radial-gradient(circle at 80% 70%, #ffb3d1 0, transparent 45%),
+        #ffc0cb;
     }
 
+    /* pola polkadot lembut */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(#ffffff55 3px, transparent 3px);
+      background-size: 36px 36px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ====== MENU ====== */
     nav {
-      background-color: #f48fb1;
-      padding: 12px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      position: relative;
+      z-index: 5;
+      padding: 18px 12px;
     }
 
     nav ul {
@@ -29,64 +47,200 @@
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 12px;
     }
 
     nav a {
       display: block;
       text-decoration: none;
       color: #fff;
-      background-color: #ec407a;
-      padding: 10px 20px;
-      border-radius: 25px;
-      font-weight: bold;
-      transition: 0.3s;
+      background: linear-gradient(135deg, #ff6fa5, #ec407a);
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      border: 3px solid #fff;
+      box-shadow: 0 5px 0 #c2185b, 0 8px 14px rgba(194, 24, 91, 0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    nav a:hover,
+    nav a:hover {
+      transform: translateY(-4px) rotate(-3deg) scale(1.05);
+      box-shadow: 0 9px 0 #c2185b, 0 14px 18px rgba(194, 24, 91, 0.3);
+    }
+
+    nav a:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 #c2185b;
+    }
+
     nav a.aktif {
-      background-color: #c2185b;
-      transform: translateY(-2px);
+      background: linear-gradient(135deg, #ffd54f, #ffb300);
+      color: #7a1f47;
+      box-shadow: 0 5px 0 #e68a00, 0 8px 14px rgba(230, 138, 0, 0.3);
     }
 
+    /* ====== KARTU SELAMAT DATANG ====== */
     .selamat {
+      position: relative;
+      z-index: 2;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 70vh;
+      min-height: 75vh;
+      padding: 20px;
     }
 
-    .selamat h1 {
-      font-size: 3.5rem;
-      color: #c2185b;
+    .kartu {
+      position: relative;
+      background: #fff;
+      border: 5px dashed #ff6fa5;
+      border-radius: 40px;
+      padding: 50px 60px 40px;
       text-align: center;
+      box-shadow: 0 12px 0 #f48fb1, 0 20px 30px rgba(194, 24, 91, 0.25);
+      animation: goyang 4s ease-in-out infinite;
+      max-width: 560px;
     }
 
+    .kartu .maskot {
+      font-size: 5rem;
+      display: block;
+      animation: loncat 1.6s ease-in-out infinite;
+    }
+
+    .kartu h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3.2rem;
+      line-height: 1.2;
+      margin: 10px 0 8px;
+      background: linear-gradient(90deg, #ff4081, #c2185b, #ff80ab);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .kartu p {
+      font-size: 1.3rem;
+      font-weight: 500;
+    }
+
+    .kartu .hiasan {
+      position: absolute;
+      font-size: 2.2rem;
+      animation: kedip 2s ease-in-out infinite;
+    }
+
+    .h1 { top: -22px; left: -18px; }
+    .h2 { top: -20px; right: -16px; animation-delay: 0.5s; }
+    .h3 { bottom: -22px; left: 30px; animation-delay: 1s; }
+    .h4 { bottom: -20px; right: 28px; animation-delay: 1.5s; }
+
+    /* ====== ELEMEN MELAYANG ====== */
+    .melayang {
+      position: fixed;
+      bottom: -60px;
+      z-index: 1;
+      pointer-events: none;
+      animation: naik linear infinite;
+      opacity: 0.85;
+    }
+
+    .melayang:nth-of-type(1)  { left: 5%;  font-size: 2rem;   animation-duration: 12s; animation-delay: 0s; }
+    .melayang:nth-of-type(2)  { left: 15%; font-size: 1.4rem; animation-duration: 9s;  animation-delay: 2s; }
+    .melayang:nth-of-type(3)  { left: 25%; font-size: 2.4rem; animation-duration: 14s; animation-delay: 5s; }
+    .melayang:nth-of-type(4)  { left: 38%; font-size: 1.6rem; animation-duration: 10s; animation-delay: 1s; }
+    .melayang:nth-of-type(5)  { left: 50%; font-size: 2rem;   animation-duration: 13s; animation-delay: 6s; }
+    .melayang:nth-of-type(6)  { left: 62%; font-size: 1.5rem; animation-duration: 9s;  animation-delay: 3s; }
+    .melayang:nth-of-type(7)  { left: 72%; font-size: 2.3rem; animation-duration: 15s; animation-delay: 0s; }
+    .melayang:nth-of-type(8)  { left: 82%; font-size: 1.7rem; animation-duration: 11s; animation-delay: 4s; }
+    .melayang:nth-of-type(9)  { left: 91%; font-size: 2rem;   animation-duration: 12s; animation-delay: 7s; }
+    .melayang:nth-of-type(10) { left: 45%; font-size: 1.3rem; animation-duration: 8s;  animation-delay: 8s; }
+
+    /* ====== AWAN ====== */
+    .awan {
+      position: fixed;
+      z-index: 1;
+      font-size: 4rem;
+      opacity: 0.9;
+      pointer-events: none;
+      animation: geser 30s linear infinite;
+    }
+    .awan.a1 { top: 18%; left: -10%; }
+    .awan.a2 { top: 55%; left: -15%; font-size: 5.5rem; animation-duration: 45s; animation-delay: -15s; }
+
+    /* ====== ANIMASI ====== */
+    @keyframes naik {
+      0%   { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-115vh) rotate(360deg); }
+    }
+    @keyframes geser {
+      from { transform: translateX(0); }
+      to   { transform: translateX(130vw); }
+    }
+    @keyframes goyang {
+      0%, 100% { transform: rotate(-1.5deg); }
+      50%      { transform: rotate(1.5deg); }
+    }
+    @keyframes loncat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50%      { transform: translateY(-14px) scale(1.08); }
+    }
+    @keyframes kedip {
+      0%, 100% { transform: scale(1) rotate(-8deg); }
+      50%      { transform: scale(1.35) rotate(8deg); }
+    }
+
+    /* ====== RESPONSIF ====== */
     @media (max-width: 600px) {
-      .selamat h1 {
-        font-size: 2.2rem;
-      }
-      nav a {
-        padding: 8px 14px;
-        font-size: 0.9rem;
-      }
+      .kartu { padding: 40px 24px 30px; }
+      .kartu h1 { font-size: 2.2rem; }
+      .kartu .maskot { font-size: 4rem; }
+      nav a { padding: 8px 16px; font-size: 0.9rem; }
     }
   </style>
 </head>
 <body>
 
+  <!-- elemen melayang -->
+  <span class="melayang">💖</span>
+  <span class="melayang">⭐</span>
+  <span class="melayang">🌸</span>
+  <span class="melayang">🎀</span>
+  <span class="melayang">💗</span>
+  <span class="melayang">✨</span>
+  <span class="melayang">🦋</span>
+  <span class="melayang">🌷</span>
+  <span class="melayang">💕</span>
+  <span class="melayang">🫧</span>
+
+  <!-- awan -->
+  <span class="awan a1">☁️</span>
+  <span class="awan a2">☁️</span>
+
+  <!-- menu -->
   <nav>
     <ul>
-      <li><a href="index.html" class="aktif">Beranda</a></li>
-      <li><a href="biodata.html">Biodata</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="video.html">Video</a></li>
-      <li><a href="tugas.html">Tugas Selanjutnya</a></li>
+      <li><a href="index.html" class="aktif">🏠 Beranda</a></li>
+      <li><a href="biodata.html">🧸 Biodata</a></li>
+      <li><a href="gallery.html">🌸 Gallery</a></li>
+      <li><a href="video.html">🎬 Video</a></li>
+      <li><a href="tugas.html">📝 Tugas Selanjutnya</a></li>
     </ul>
   </nav>
 
+  <!-- selamat datang -->
   <div class="selamat">
-    <h1>Selamat Datang</h1>
+    <div class="kartu">
+      <span class="hiasan h1">💖</span>
+      <span class="hiasan h2">⭐</span>
+      <span class="hiasan h3">🎀</span>
+      <span class="hiasan h4">✨</span>
+
+      <span class="maskot">🐰</span>
+      <h1>Selamat Datang</h1>
+      <p>Semoga harimu menyenangkan! 🌷</p>
+    </div>
   </div>
 
 </body>
