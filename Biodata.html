@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Biodata</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins', sans-serif;
+    background: linear-gradient(135deg,#020617,#0f172a);
+    color:white;
+}
+
+/* Navbar */
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 60px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+}
+
+nav h1{
+    font-family:'Playfair Display', serif;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+}
+
+nav li{
+    margin-left:30px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    position:relative;
+}
+
+nav a::after{
+    content:"";
+    position:absolute;
+    width:0;
+    height:2px;
+    background:#38bdf8;
+    left:0;
+    bottom:-5px;
+    transition:0.3s;
+}
+
+nav a:hover::after{
+    width:100%;
+}
+
+/* Container */
+.container{
+    height:90vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Card */
+.profile-card{
+    width:800px;
+    display:flex;
+    gap:30px;
+    background: rgba(255,255,255,0.05);
+    border-radius:20px;
+    padding:40px;
+    backdrop-filter: blur(15px);
+    box-shadow:0 10px 40px rgba(0,0,0,0.6);
+    animation:fadeUp 1.5s;
+}
+
+/* Foto */
+.profile-img{
+    width:200px;
+    height:200px;
+    border-radius:20px;
+    object-fit:cover;
+}
+
+/* Info */
+.profile-info h2{
+    font-family:'Playfair Display', serif;
+    margin-bottom:10px;
+}
+
+.profile-info p{
+    margin:8px 0;
+    opacity:0.8;
+}
+
+/* Highlight */
+.highlight{
+    margin-top:15px;
+    padding:10px;
+    background: rgba(56,189,248,0.2);
+    border-radius:10px;
+}
+
+/* Animasi */
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<nav>
+    <h1>syahmira</h1>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="biodata.html">Biodata</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="video.html">Video</a></li>
+        <li><a href="Lain-lain.html">Koleksi</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+
+    <div class="profile-card">
+
+        <!-- Foto -->
+        <img src="WhatsApp Image 2025-12-09 at 13.35.13_02fcabfb.jpg" class="profile-img">
+
+        <!-- Info -->
+        <div class="profile-info">
+            <h2>syahmira</h2>
+            <p><strong>NIM:</strong> 24107153200091</p>
+            <p><strong>Jurusan:</strong> Sosial Ekonomi Perikanan</p>
+            <p><strong>Asal Daerah:</strong>kotabaru</p>
+            <p><strong>Email:</strong>syahmiranayla1@gmail.com</p>
+
+            <div class="highlight">
+                Mahasiswa aktif yang punya semangat tinggi dalam menuntut ilmu.
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
