@@ -38,7 +38,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Riak air: cincin gelombang khas billabong di sudut halaman */
+/* Riak air di sudut halaman */
 body::before {
     content: "";
     position: fixed;
@@ -81,12 +81,13 @@ nav {
     border-radius: 999px;
 }
 
-nav h1 {
+nav .brand {
     font-family: 'Fraunces', serif;
     font-size: 1.25rem;
     font-weight: 700;
     letter-spacing: -0.01em;
     color: var(--text);
+    text-decoration: none;
 }
 
 nav ul {
@@ -95,7 +96,7 @@ nav ul {
     gap: 4px;
 }
 
-nav a {
+nav ul a {
     display: block;
     padding: 8px 16px;
     border-radius: 999px;
@@ -106,9 +107,9 @@ nav a {
     transition: background 0.2s, color 0.2s;
 }
 
-nav a:hover { color: var(--text); background: rgba(194, 37, 92, 0.09); }
+nav ul a:hover { color: var(--text); background: rgba(194, 37, 92, 0.09); }
 
-nav a[aria-current="page"] {
+nav ul a[aria-current="page"] {
     background: var(--sun);
     color: #ffffff;
     font-weight: 600;
@@ -262,7 +263,7 @@ nav a[aria-current="page"] {
     transform: translate(2px, -2px);
 }
 
-/* Tugas Akhir: satu-satunya blok berwarna penuh */
+/* Tugas Akhir */
 .task-card.highlight {
     grid-column: span 2;
     flex-direction: row;
@@ -298,7 +299,7 @@ nav a[aria-current="page"] {
         border-radius: 28px;
     }
     nav ul { flex-wrap: wrap; justify-content: center; }
-    nav a { padding: 7px 13px; font-size: 0.85rem; }
+    nav ul a { padding: 7px 13px; font-size: 0.85rem; }
     .hero { padding: 36px 16px 64px; }
     .hero-dashboard { padding: 22px 16px; }
     .task-grid { grid-template-columns: 1fr; }
@@ -317,13 +318,14 @@ nav a[aria-current="page"] {
 <body>
 
 <nav>
-    <h1>syahmira</h1>
+    <a href="index.html" class="brand">syahmira</a>
 
     <ul>
-        <li><a href="index.html" aria-current="page">Indexs</a></li>
-        <li><a href="Biodata.html">Biodata</a></li>
+        <li><a href="index.html" aria-current="page">Beranda</a></li>
+        <li><a href="biodata.html">Biodata</a></li>
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="video.html">Video</a></li>
+        <li><a href="produksi.html">Tugas Akhir</a></li>
     </ul>
 </nav>
 
@@ -346,7 +348,7 @@ nav a[aria-current="page"] {
     <!-- Kanan: Dashboard Interaktif Tugas -->
     <div class="hero-dashboard">
         <div class="dashboard-header">
-            <h3>✨ Kumpulan Tugas & Sajian Data</h3>
+            <h3>✨ Kumpulan Tugas &amp; Sajian Data</h3>
             <p>Silakan pilih tugas yang ingin Anda tinjau di bawah ini.</p>
         </div>
 
@@ -359,7 +361,7 @@ nav a[aria-current="page"] {
                 </div>
             </a>
 
-            <a href="https://forms.gle/tZapLYbHtzEsJtAt6" target="_blank" rel="noopener" class="task-card">
+            <a href="https://forms.gle/tZapLYbHtzEsJtAt6" target="_blank" rel="noopener noreferrer" class="task-card">
                 <div class="task-icon">📝</div>
                 <div>
                     <h4>Tugas 3</h4>
@@ -367,7 +369,7 @@ nav a[aria-current="page"] {
                 </div>
             </a>
 
-            <a href="https://datastudio.google.com/reporting/f91eacaa-d139-4cc0-a2da-b38ad170e85d" target="_blank" rel="noopener" class="task-card">
+            <a href="https://datastudio.google.com/reporting/f91eacaa-d139-4cc0-a2da-b38ad170e85d" target="_blank" rel="noopener noreferrer" class="task-card">
                 <div class="task-icon">📊</div>
                 <div>
                     <h4>Sajian Data T3</h4>
@@ -375,7 +377,7 @@ nav a[aria-current="page"] {
                 </div>
             </a>
 
-            <a href="https://forms.gle/gz7KY2BzbjwkswS7A" target="_blank" rel="noopener" class="task-card">
+            <a href="https://forms.gle/gz7KY2BzbjwkswS7A" target="_blank" rel="noopener noreferrer" class="task-card">
                 <div class="task-icon">✍️</div>
                 <div>
                     <h4>Tugas 4</h4>
@@ -383,7 +385,7 @@ nav a[aria-current="page"] {
                 </div>
             </a>
 
-            <a href="sajian data tugas 4.html" class="task-card">
+            <a href="sajian-data-tugas-4.html" class="task-card">
                 <div class="task-icon">💻</div>
                 <div>
                     <h4>Sajian Data T4</h4>
