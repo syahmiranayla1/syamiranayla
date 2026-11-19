@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video | Syahmirayogis</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg: #fde8ef;
+    --surface: #fff5f8;
+    --surface-2: #fbd5e2;
+    --line: rgba(122, 20, 66, 0.16);
+    --aqua: #b0114f;
+    --sun: #c2255c;
+    --sun-hover: #a81c4c;
+    --text: #3a0f22;
+    --muted: #7a4a5e;
+    --radius-lg: 28px;
+    --radius-md: 18px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Figtree', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: -260px;
+    right: -260px;
+    width: 780px;
+    height: 780px;
+    border-radius: 50%;
+    background: repeating-radial-gradient(circle at center,
+        transparent 0 46px,
+        rgba(194, 37, 92, 0.12) 46px 48px);
+    -webkit-mask-image: radial-gradient(circle, #000 20%, transparent 70%);
+            mask-image: radial-gradient(circle, #000 20%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+:focus-visible {
+    outline: 3px solid var(--sun);
+    outline-offset: 3px;
+    border-radius: 8px;
+}
+
+/* ---------- Navbar ---------- */
+nav {
+    position: sticky;
+    top: 16px;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    max-width: 1160px;
+    margin: 16px auto 0;
+    padding: 10px 14px 10px 28px;
+    background: rgba(253, 232, 239, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+}
+
+nav h1 { font-family: 'Fraunces', serif; font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; }
+nav ul { display: flex; list-style: none; gap: 4px; }
+
+nav a {
+    display: block;
+    padding: 8px 16px;
+    border-radius: 999px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+}
+nav a:hover { color: var(--text); background: rgba(194, 37, 92, 0.09); }
+nav a[aria-current="page"] { background: var(--sun); color: #ffffff; font-weight: 600; }
+
+/* ---------- Header ---------- */
+.page { position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; padding: 56px 24px 96px; }
+
+.page-head { margin-bottom: 32px; animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+.badge {
+    display: inline-flex;
+    padding: 6px 14px;
+    margin-bottom: 16px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    color: var(--aqua);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.page-head h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin-bottom: 12px;
+}
+.page-head p { color: var(--muted); max-width: 54ch; }
+
+/* ---------- Filter ---------- */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+
+.filter {
+    padding: 9px 20px;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.filter:hover { border-color: var(--aqua); color: var(--aqua); }
+.filter[aria-pressed="true"] { background: var(--sun); border-color: var(--sun); color: #ffffff; }
+
+/* ---------- Grid video ---------- */
+.videos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+
+.vcard {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color 0.25s;
+    animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.vcard:hover { border-color: var(--aqua); }
+.vcard[hidden] { display: none; }
+
+.player { aspect-ratio: 16 / 9; background: #3a0f22; }
+.player video, .player iframe { display: block; width: 100%; height: 100%; border: 0; }
+
+.vinfo { padding: 18px 22px 22px; }
+.vinfo .tag {
+    display: inline-block;
+    padding: 3px 12px;
+    margin-bottom: 8px;
+    background: var(--surface-2);
+    color: var(--aqua);
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+.vinfo h3 { font-family: 'Fraunces', serif; font-size: 1.2rem; letter-spacing: -0.01em; }
+.vinfo p { font-size: 0.9rem; color: var(--muted); }
+
+@keyframes rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Responsif ---------- */
+@media (max-width: 960px) {
+    nav { margin-left: 12px; margin-right: 12px; }
+}
+@media (max-width: 760px) {
+    .videos { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+    nav { flex-direction: column; gap: 8px; padding: 14px 12px; border-radius: 28px; }
+    nav ul { flex-wrap: wrap; justify-content: center; }
+    nav a { padding: 7px 13px; font-size: 0.85rem; }
+    .page { padding: 32px 16px 64px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <h1>Syahmirayogis</h1>
+    <ul>
+        <li><a href="index.html">Indexs</a></li>
+        <li><a href="biodata.html">Biodata</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="video.html" aria-current="page">Video</a></li>
+        <li><a href="Lain-lain.html">Koleksi</a></li>
+    </ul>
+</nav>
+
+<main class="page">
+    <header class="page-head">
+        <span class="badge">Video Kreatif 🎬</span>
+        <h2>Video</h2>
+        <p>Kumpulan video karya dan dokumentasi kegiatan.</p>
+    </header>
+
+    <div class="filters" role="group" aria-label="Filter kategori">
+        <button class="filter" data-filter="semua" aria-pressed="true">Semua</button>
+        <button class="filter" data-filter="karya" aria-pressed="false">Karya</button>
+        <button class="filter" data-filter="kegiatan" aria-pressed="false">Kegiatan</button>
+    </div>
+
+    <!--
+      MENAMBAH VIDEO: salin satu blok <article class="vcard"> lalu ubah isinya.
+      "data-cat" harus sama dengan data-filter pada tombol filter.
+
+      OPSI A - video dari file (taruh file di folder "video"):
+        <div class="player">
+            <video controls preload="metadata" poster="video/cover1.jpg">
+                <source src="video/video1.mp4" type="video/mp4">
+            </video>
+        </div>
+
+      OPSI B - video YouTube (ganti ID_VIDEO dengan kode di link YouTube):
+        <div class="player">
+            <iframe src="https://www.youtube-nocookie.com/embed/ID_VIDEO"
+                    title="Judul video" loading="lazy" allowfullscreen></iframe>
+        </div>
+    -->
+    <section class="videos" id="videos">
+
+        <article class="vcard" data-cat="karya">
+            <div class="player">
+                <video controls preload="metadata">
+                    <source src="video/video1.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="vinfo">
+                <span class="tag">Karya</span>
+                <h3>Video Produksi Akhir</h3>
+                <p>Hasil karya video untuk tugas akhir.</p>
+            </div>
+        </article>
+
+        <article class="vcard" data-cat="kegiatan">
+            <div class="player">
+                <video controls preload="metadata">
+                    <source src="video/video2.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="vinfo">
+                <span class="tag">Kegiatan</span>
+                <h3>Dokumentasi Kegiatan Kampus</h3>
+                <p>Rekaman momen kegiatan bersama teman-teman.</p>
+            </div>
+        </article>
+
+        <article class="vcard" data-cat="karya">
+            <div class="player">
+                <video controls preload="metadata">
+                    <source src="video/video3.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="vinfo">
+                <span class="tag">Karya</span>
+                <h3>Video Kreatif</h3>
+                <p>Eksperimen visual dan editing.</p>
+            </div>
+        </article>
+
+        <article class="vcard" data-cat="kegiatan">
+            <div class="player">
+                <video controls preload="metadata">
+                    <source src="video/video4.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="vinfo">
+                <span class="tag">Kegiatan</span>
+                <h3>Perjalanan dan Momen</h3>
+                <p>Cuplikan perjalanan di Kalimantan Selatan.</p>
+            </div>
+        </article>
+
+    </section>
+</main>
+
+<script>
+(function () {
+    var filters = document.querySelectorAll('.filter');
+    var cards = document.querySelectorAll('.vcard');
+
+    cards.forEach(function (el, i) { el.style.animationDelay = (i * 0.08) + 's'; });
+
+    filters.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var cat = btn.dataset.filter;
+            filters.forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
+            cards.forEach(function (el) {
+                el.hidden = !(cat === 'semua' || el.dataset.cat === cat);
+            });
+        });
+    });
+})();
+</script>
+
+</body>
+</html>
