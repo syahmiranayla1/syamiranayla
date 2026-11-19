@@ -3,16 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Selamat Datang</title>
+  <title>Beranda</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
     }
 
     body {
@@ -22,26 +18,9 @@
       min-height: 100vh;
     }
 
-    header {
-      text-align: center;
-      padding: 50px 20px 20px;
-    }
-
-    header h1 {
-      font-size: 3rem;
-      color: #c2185b;
-    }
-
-    header p {
-      font-size: 1.2rem;
-      margin-top: 8px;
-    }
-
     nav {
       background-color: #f48fb1;
       padding: 12px;
-      position: sticky;
-      top: 0;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }
 
@@ -64,40 +43,28 @@
       transition: 0.3s;
     }
 
-    nav a:hover {
+    nav a:hover,
+    nav a.aktif {
       background-color: #c2185b;
       transform: translateY(-2px);
     }
 
-    main {
-      max-width: 800px;
-      margin: 30px auto;
-      padding: 0 20px;
+    .selamat {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 70vh;
     }
 
-    section {
-      background-color: #fff0f5;
-      padding: 25px;
-      margin-bottom: 20px;
-      border-radius: 15px;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    section h2 {
+    .selamat h1 {
+      font-size: 3.5rem;
       color: #c2185b;
-      margin-bottom: 10px;
-    }
-
-    footer {
       text-align: center;
-      padding: 20px;
-      background-color: #f48fb1;
-      color: #fff;
     }
 
     @media (max-width: 600px) {
-      header h1 {
-        font-size: 2rem;
+      .selamat h1 {
+        font-size: 2.2rem;
       }
       nav a {
         padding: 8px 14px;
@@ -108,53 +75,19 @@
 </head>
 <body>
 
-  <header>
-    <h1>Selamat Datang</h1>
-    <p>Di website saya</p>
-  </header>
-
   <nav>
     <ul>
-      <li><a href="#beranda">Beranda</a></li>
-      <li><a href="#biodata">Biodata</a></li>
-      <li><a href="#gallery">Gallery</a></li>
-      <li><a href="#video">Video</a></li>
-      <li><a href="#tugas">Tugas Selanjutnya</a></li>
+      <li><a href="index.html" class="aktif">Beranda</a></li>
+      <li><a href="biodata.html">Biodata</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="video.html">Video</a></li>
+      <li><a href="tugas.html">Tugas Selanjutnya</a></li>
     </ul>
   </nav>
 
-  <main>
-    <section id="beranda">
-      <h2>Beranda</h2>
-      <p>Halo! Selamat datang di halaman utama website ini.</p>
-    </section>
-
-    <section id="biodata">
-      <h2>Biodata</h2>
-      <p>Nama: ...............</p>
-      <p>Kelas: ..............</p>
-      <p>Alamat: Banjarbaru, Kalimantan Selatan</p>
-    </section>
-
-    <section id="gallery">
-      <h2>Gallery</h2>
-      <p>Foto-foto akan ditampilkan di sini.</p>
-    </section>
-
-    <section id="video">
-      <h2>Video</h2>
-      <p>Video akan ditampilkan di sini.</p>
-    </section>
-
-    <section id="tugas">
-      <h2>Tugas Selanjutnya</h2>
-      <p>Daftar tugas berikutnya akan ditampilkan di sini.</p>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2026 - Website Saya</p>
-  </footer>
+  <div class="selamat">
+    <h1>Selamat Datang</h1>
+  </div>
 
 </body>
 </html>
