@@ -225,20 +225,20 @@
       margin-bottom: 14px;
     }
 
-    .aksi {
+    /* dua tombol file */
+    .file-baris {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
       gap: 10px;
-      flex-wrap: wrap;
+      margin-bottom: 14px;
     }
 
     .tombol {
-      display: inline-block;
+      flex: 1;
+      text-align: center;
       text-decoration: none;
       color: #fff;
       background: linear-gradient(135deg, #ff6fa5, #ec407a);
-      padding: 7px 18px;
+      padding: 7px 10px;
       border-radius: 25px;
       font-weight: 700;
       font-size: 0.95rem;
@@ -247,9 +247,18 @@
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
+    .tombol.dua {
+      background: linear-gradient(135deg, #ab7bff, #7e57c2);
+      box-shadow: 0 4px 0 #4527a0;
+    }
+
     .tombol:hover {
       transform: translateY(-3px) rotate(-2deg);
       box-shadow: 0 7px 0 #c2185b;
+    }
+
+    .tombol.dua:hover {
+      box-shadow: 0 7px 0 #4527a0;
     }
 
     .tombol:active {
@@ -257,13 +266,17 @@
       box-shadow: 0 2px 0 #c2185b;
     }
 
+    .tombol.dua:active {
+      box-shadow: 0 2px 0 #4527a0;
+    }
+
     /* centang selesai */
     .centang {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 6px;
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       cursor: pointer;
       user-select: none;
     }
@@ -283,8 +296,8 @@
 
     .stempel {
       position: absolute;
-      bottom: 62px;
-      right: 14px;
+      bottom: 16px;
+      right: 16px;
       font-size: 3rem;
       transform: rotate(-15deg) scale(0);
       transition: transform 0.35s;
@@ -394,8 +407,9 @@
 
   <!--
     CARA GANTI FILE TUGAS:
-    Ubah nama file di href="tugas1.pdf" sesuai file tugasmu.
-    Taruh file (PDF / Word / PPT / gambar) di folder yang sama dengan tugas.html.
+    Tiap tugas punya 2 file: File 1 (merah muda) dan File 2 (ungu).
+    Ubah nama file di href="tugas1-file1.pdf" dan href="tugas1-file2.pdf".
+    Taruh semua file di folder yang sama dengan halaman ini.
   -->
   <div class="grid">
 
@@ -404,12 +418,17 @@
       <span class="stempel">✅</span>
       <div class="atas">
         <span class="nomor">Tugas 1</span>
+        <span class="status belum">Belum dikerjakan</span>
       </div>
       <h3>Judul Tugas Pertama</h3>
-      <p class="Data Diri">FORM DATA DIRI</p>
-      <div class="aksi">
-        <a class="tombol" href="https://forms.gle/EKQUfj7wvx6LcBf98" target="_blank">📂 Buka File</a>
+      <p class="mapel">📚 Mata Pelajaran: Matematika</p>
+      <p class="deskripsi">Tulis penjelasan singkat tugas di sini.</p>
+      <span class="deadline">⏰ Batas: 25 November 2026</span>
+      <div class="file-baris">
+        <a class="tombol" href="tugas1-file1.pdf" target="_blank">📂 File 1</a>
+        <a class="tombol dua" href="tugas1-file2.pdf" target="_blank">📂 File 2</a>
       </div>
+      <label class="centang"><input type="checkbox"> Selesai</label>
     </div>
 
     <div class="tugas c2">
@@ -423,10 +442,11 @@
       <p class="mapel">📚 Mata Pelajaran: Bahasa Indonesia</p>
       <p class="deskripsi">Tulis penjelasan singkat tugas di sini.</p>
       <span class="deadline">⏰ Batas: 28 November 2026</span>
-      <div class="aksi">
-        <a class="tombol" href="tugas2.pdf" target="_blank">📂 Buka File</a>
-        <label class="centang"><input type="checkbox"> Selesai</label>
+      <div class="file-baris">
+        <a class="tombol" href="tugas2-file1.pdf" target="_blank">📂 File 1</a>
+        <a class="tombol dua" href="tugas2-file2.pdf" target="_blank">📂 File 2</a>
       </div>
+      <label class="centang"><input type="checkbox"> Selesai</label>
     </div>
 
     <div class="tugas c3">
@@ -440,10 +460,11 @@
       <p class="mapel">📚 Mata Pelajaran: IPA</p>
       <p class="deskripsi">Tulis penjelasan singkat tugas di sini.</p>
       <span class="deadline">⏰ Batas: 2 Desember 2026</span>
-      <div class="aksi">
-        <a class="tombol" href="tugas3.pdf" target="_blank">📂 Buka File</a>
-        <label class="centang"><input type="checkbox"> Selesai</label>
+      <div class="file-baris">
+        <a class="tombol" href="tugas3-file1.pdf" target="_blank">📂 File 1</a>
+        <a class="tombol dua" href="tugas3-file2.pdf" target="_blank">📂 File 2</a>
       </div>
+      <label class="centang"><input type="checkbox"> Selesai</label>
     </div>
 
     <div class="tugas c4">
@@ -457,10 +478,29 @@
       <p class="mapel">📚 Mata Pelajaran: Bahasa Inggris</p>
       <p class="deskripsi">Tulis penjelasan singkat tugas di sini.</p>
       <span class="deadline">⏰ Batas: 5 Desember 2026</span>
-      <div class="aksi">
-        <a class="tombol" href="tugas4.pdf" target="_blank">📂 Buka File</a>
-        <label class="centang"><input type="checkbox"> Selesai</label>
+      <div class="file-baris">
+        <a class="tombol" href="tugas4-file1.pdf" target="_blank">📂 File 1</a>
+        <a class="tombol dua" href="tugas4-file2.pdf" target="_blank">📂 File 2</a>
       </div>
+      <label class="centang"><input type="checkbox"> Selesai</label>
+    </div>
+
+    <div class="tugas c5">
+      <span class="pin">📌</span>
+      <span class="stempel">✅</span>
+      <div class="atas">
+        <span class="nomor">Tugas 5</span>
+        <span class="status belum">Belum dikerjakan</span>
+      </div>
+      <h3>Judul Tugas Kelima</h3>
+      <p class="mapel">📚 Mata Pelajaran: Informatika</p>
+      <p class="deskripsi">Tulis penjelasan singkat tugas di sini.</p>
+      <span class="deadline">⏰ Batas: 9 Desember 2026</span>
+      <div class="file-baris">
+        <a class="tombol" href="tugas5-file1.pdf" target="_blank">📂 File 1</a>
+        <a class="tombol dua" href="tugas5-file2.pdf" target="_blank">📂 File 2</a>
+      </div>
+      <label class="centang"><input type="checkbox"> Selesai</label>
     </div>
 
   </div>
@@ -497,3 +537,4 @@
   </script>
 
 </body>
+</html>
