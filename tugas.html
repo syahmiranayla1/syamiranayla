@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tugas Selanjutnya</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Baloo 2', Arial, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      color: #7a1f47;
+      background:
+        radial-gradient(circle at 20% 20%, #ffe0ec 0, transparent 40%),
+        radial-gradient(circle at 80% 70%, #ffb3d1 0, transparent 45%),
+        #ffc0cb;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(#ffffff55 3px, transparent 3px);
+      background-size: 36px 36px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ====== MENU ====== */
+    nav {
+      position: relative;
+      z-index: 5;
+      padding: 18px 12px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    nav a {
+      display: block;
+      text-decoration: none;
+      color: #fff;
+      background: linear-gradient(135deg, #ff6fa5, #ec407a);
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      border: 3px solid #fff;
+      box-shadow: 0 5px 0 #c2185b, 0 8px 14px rgba(194, 24, 91, 0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    nav a:hover {
+      transform: translateY(-4px) rotate(-3deg) scale(1.05);
+      box-shadow: 0 9px 0 #c2185b, 0 14px 18px rgba(194, 24, 91, 0.3);
+    }
+
+    nav a:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 #c2185b;
+    }
+
+    nav a.aktif {
+      background: linear-gradient(135deg, #ffd54f, #ffb300);
+      color: #7a1f47;
+      box-shadow: 0 5px 0 #e68a00, 0 8px 14px rgba(230, 138, 0, 0.3);
+    }
+
+    /* ====== JUDUL ====== */
+    .judul {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      margin: 10px 16px 35px;
+    }
+
+    .judul .maskot {
+      display: block;
+      font-size: 4rem;
+      animation: loncat 1.6s ease-in-out infinite;
+    }
+
+    .judul h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3.2rem;
+      line-height: 1.2;
+      background: linear-gradient(90deg, #ff4081, #c2185b, #ff80ab);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .judul p {
+      font-size: 1.2rem;
+    }
+
+    .hitung {
+      display: inline-block;
+      margin-top: 12px;
+      background: #fff;
+      border: 3px solid #ff6fa5;
+      border-radius: 25px;
+      padding: 4px 20px;
+      font-weight: 800;
+      box-shadow: 0 4px 0 #f48fb1;
+    }
+
+    /* ====== DAFTAR TUGAS ====== */
+    .grid {
+      position: relative;
+      z-index: 2;
+      max-width: 980px;
+      margin: 0 auto 70px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px 28px;
+    }
+
+    .tugas {
+      position: relative;
+      border-radius: 18px;
+      padding: 34px 22px 22px;
+      border: 4px solid #fff;
+      box-shadow: 0 8px 0 rgba(194, 24, 91, 0.25), 0 14px 20px rgba(194, 24, 91, 0.15);
+      transition: transform 0.3s;
+    }
+
+    .tugas:nth-child(4n+1) { transform: rotate(-2deg); }
+    .tugas:nth-child(4n+2) { transform: rotate(1.5deg); }
+    .tugas:nth-child(4n+3) { transform: rotate(-1deg); }
+    .tugas:nth-child(4n+4) { transform: rotate(2deg); }
+
+    .tugas:hover {
+      transform: rotate(0deg) scale(1.05) translateY(-6px);
+      z-index: 3;
+    }
+
+    .pin {
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      animation: kedip 2.5s ease-in-out infinite;
+    }
+
+    .c1 { background: #ffe0ec; }
+    .c2 { background: #fff3c4; }
+    .c3 { background: #d9f2ff; }
+    .c4 { background: #e4ffd9; }
+    .c5 { background: #eadcff; }
+    .c6 { background: #ffe4cf; }
+
+    .atas {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .nomor {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.1rem;
+      color: #c2185b;
+    }
+
+    .status {
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 2px 12px;
+      border-radius: 20px;
+      border: 2px solid #fff;
+      color: #fff;
+    }
+
+    .status.belum    { background: #ff6fa5; }
+    .status.proses   { background: #ffb300; color: #7a1f47; }
+    .status.selesai  { background: #4caf50; }
+
+    .tugas h3 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      line-height: 1.2;
+      color: #7a1f47;
+      margin-bottom: 4px;
+    }
+
+    .tugas .mapel {
+      font-weight: 700;
+      font-size: 0.95rem;
+      opacity: 0.85;
+      margin-bottom: 8px;
+    }
+
+    .tugas .deskripsi {
+      font-size: 0.98rem;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .file-baris {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .tombol {
+      flex: 1;
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
+      background: linear-gradient(135deg, #ff6fa5, #ec407a);
+      padding: 7px 10px;
+      border-radius: 25px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: 3px solid #fff;
+      box-shadow: 0 4px 0 #c2185b;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .tombol.dua {
+      background: linear-gradient(135deg, #ab7bff, #7e57c2);
+      box-shadow: 0 4px 0 #4527a0;
+    }
+
+    .tombol:hover {
+      transform: translateY(-3px) rotate(-2deg);
+      box-shadow: 0 7px 0 #c2185b;
+    }
+
+    .tombol.dua:hover {
+      box-shadow: 0 7px 0 #4527a0;
+    }
+
+    .tombol:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #c2185b;
+    }
+
+    .tombol.dua:active {
+      box-shadow: 0 2px 0 #4527a0;
+    }
+
+    .centang {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .centang input {
+      width: 22px;
+      height: 22px;
+      accent-color: #ec407a;
+      cursor: pointer;
+    }
+
+    .tugas.beres h3,
+    .tugas.beres .deskripsi {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+
+    .stempel {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      font-size: 3rem;
+      transform: rotate(-15deg) scale(0);
+      transition: transform 0.35s;
+      pointer-events: none;
+    }
+
+    .tugas.beres .stempel {
+      transform: rotate(-15deg) scale(1);
+    }
+
+    /* ====== ELEMEN MELAYANG ====== */
+    .melayang {
+      position: fixed;
+      bottom: -60px;
+      z-index: 1;
+      pointer-events: none;
+      animation: naik linear infinite;
+      opacity: 0.85;
+    }
+
+    .melayang:nth-of-type(1)  { left: 5%;  font-size: 2rem;   animation-duration: 12s; animation-delay: 0s; }
+    .melayang:nth-of-type(2)  { left: 15%; font-size: 1.4rem; animation-duration: 9s;  animation-delay: 2s; }
+    .melayang:nth-of-type(3)  { left: 25%; font-size: 2.4rem; animation-duration: 14s; animation-delay: 5s; }
+    .melayang:nth-of-type(4)  { left: 38%; font-size: 1.6rem; animation-duration: 10s; animation-delay: 1s; }
+    .melayang:nth-of-type(5)  { left: 50%; font-size: 2rem;   animation-duration: 13s; animation-delay: 6s; }
+    .melayang:nth-of-type(6)  { left: 62%; font-size: 1.5rem; animation-duration: 9s;  animation-delay: 3s; }
+    .melayang:nth-of-type(7)  { left: 72%; font-size: 2.3rem; animation-duration: 15s; animation-delay: 0s; }
+    .melayang:nth-of-type(8)  { left: 82%; font-size: 1.7rem; animation-duration: 11s; animation-delay: 4s; }
+    .melayang:nth-of-type(9)  { left: 91%; font-size: 2rem;   animation-duration: 12s; animation-delay: 7s; }
+    .melayang:nth-of-type(10) { left: 45%; font-size: 1.3rem; animation-duration: 8s;  animation-delay: 8s; }
+
+    /* ====== AWAN ====== */
+    .awan {
+      position: fixed;
+      z-index: 1;
+      font-size: 4rem;
+      opacity: 0.9;
+      pointer-events: none;
+      animation: geser 30s linear infinite;
+    }
+    .awan.a1 { top: 18%; left: -10%; }
+    .awan.a2 { top: 60%; left: -15%; font-size: 5.5rem; animation-duration: 45s; animation-delay: -15s; }
+
+    @keyframes naik {
+      0%   { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-115vh) rotate(360deg); }
+    }
+    @keyframes geser {
+      from { transform: translateX(0); }
+      to   { transform: translateX(130vw); }
+    }
+    @keyframes loncat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50%      { transform: translateY(-12px) scale(1.08); }
+    }
+    @keyframes kedip {
+      0%, 100% { transform: translateX(-50%) scale(1) rotate(-8deg); }
+      50%      { transform: translateX(-50%) scale(1.25) rotate(8deg); }
+    }
+
+    @media (max-width: 600px) {
+      .judul h1 { font-size: 2.3rem; }
+      nav a { padding: 8px 16px; font-size: 0.9rem; }
+      .grid { grid-template-columns: 1fr; padding: 0 16px; }
+      .tugas:nth-child(n) { transform: rotate(0deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- elemen melayang -->
+  <span class="melayang">💖</span>
+  <span class="melayang">⭐</span>
+  <span class="melayang">🌸</span>
+  <span class="melayang">🎀</span>
+  <span class="melayang">💗</span>
+  <span class="melayang">✨</span>
+  <span class="melayang">🦋</span>
+  <span class="melayang">🌷</span>
+  <span class="melayang">💕</span>
+  <span class="melayang">🫧</span>
+
+  <!-- awan -->
+  <span class="awan a1">☁️</span>
+  <span class="awan a2">☁️</span>
+
+  <!-- menu -->
+  <nav>
+    <ul>
+      <li><a href="index.html">🏠 Beranda</a></li>
+      <li><a href="biodata.html">🧸 Biodata</a></li>
+      <li><a href="gallery.html">🌸 Gallery</a></li>
+      <li><a href="video.html">🎬 Video</a></li>
+      <li><a href="tugas.html" class="aktif">📝 Tugas Selanjutnya</a></li>
+    </ul>
+  </nav>
+
+  <!-- judul -->
+  <div class="judul">
+    <span class="maskot">📝</span>
+    <h1>Tugas Selanjutnya</h1>
+    <p>Semangat mengerjakan tugasnya ya! 💪</p>
+    <div class="hitung" id="hitung">Selesai: 0 dari 0 tugas 🎯</div>
+  </div>
+
+  <div class="grid">
+
+    <!-- TUGAS 2 -->
+    <div class="tugas c1">
+      <span class="pin">📌</span>
+      <div class="atas">
+        <span class="nomor">Tugas 2</span>
+        <span class="status belum">Belum dikerjakan</span>
+      </div>
+      <h3>Judul Tugas Kedua</h3>
+      <p class="mapel">Formulir Data Diri</p>
+      <p class="deskripsi">Pengisian formulir biodata dan foto diri melalui Google Form.</p>
+      <div class="file-baris">
+        <a class="tombol" href="https://forms.gle/KrLoTXT5r6JfJEA56" target="_blank">📂 Isi Form</a>
+        <a class="tombol dua" href="#" target="_blank">📂 File 2</a>
+      </div>
+      <label class="centang"><input type="checkbox"> Selesai</label>
+      <span class="stempel">✅</span>
+    </div>
+
+    <!-- TUGAS 3 -->
+    <div class="tugas c2">
+      <span class="pin">📍</span>
+      <div class="atas">
+        <span class="nomor">Tugas 3</span>
+        <span class="status belum">Belum dikerjakan</span>
+      </div>
+      <h3>Judul Tugas Ketiga</h3>
+      <p class="mapel">Tingkat Kepuasan Penggunaan Dompet Digital (DANA)</p>
+      <p class="deskripsi">Survei tingkat kepuasan penggunaan terhadap dompet digital pada kalangan mahasiswa.</p>
+      <div class="file-baris">
+        <a class="tombol" href="https://forms.gle/iMyLUGzpS2dnfTUZA" target="_blank">📂 Google Form</a>
+        <a class="tombol dua" href="https://datastudio.google.com/reporting/3acfed8d-2312-4f0d-a044-fa88e9188f34" target="_blank">📊 Looker Studio</a>
+      </div>
+      <label class="centang"><input type="checkbox"> Selesai</label>
+      <span class="stempel">✅</span>
+    </div>
+
+    <!-- TUGAS 4 (TERHUBUNG KE tugas4.html) -->
+    <div class="tugas c3">
+      <span class="pin">📌</span>
+      <div class="atas">
+        <span class="nomor">Tugas 4</span>
+        <span class="status belum">Belum dikerjakan</span>
+      </div>
+      <h3>Tugas 4 Individu</h3>
+      <p class="mapel">TUGAS INDIVIDU POKLAHSAR</p>
+      <p class="deskripsi">Inventaris barang &amp; aktivitas kelompok lengkap dengan form, sheet, dan dashboard Looker Studio.</p>
+      <div class="file-baris">
+        <a class="tombol" href="tugas4.html">🌐 Buka Tugas 4</a>
+      </div>
+      <label class="centang"><input type="checkbox"> Selesai</label>
+      <span class="stempel">✅</span>
+    </div>
+
+    <!-- TUGAS 5 -->
+    <div class="tugas c4">
+      <span class="pin">📍</span>
+      <div class="atas">
+        <span class="nomor">Tugas 5</span>
+        <span class="status belum">Belum dikerjakan</span>
+      </div>
+      <h3>Judul Tugas 5</h3>
+      <p class="mapel">TUGAS KELOMPOK POKLAHSAR</p>
+      <p class="deskripsi">Tulis penjelasan singkat tugas kelompok di sini.</p>
+      <div class="file-baris">
+        <a class="tombol" href="tugas5-file1.pdf" target="_blank">📂 File 1</a>
+        <a class="tombol dua" href="tugas5-file2.pdf" target="_blank">📂 File 2</a>
+      </div>
+      <label class="centang"><input type="checkbox"> Selesai</label>
+      <span class="stempel">✅</span>
+    </div>
+
+  </div>
+
+  <script>
+    var daftar = document.querySelectorAll('.tugas');
+    var teksHitung = document.getElementById('hitung');
+
+    function perbarui() {
+      var selesai = document.querySelectorAll('.tugas.beres').length;
+      var pesan = (selesai === daftar.length && daftar.length > 0) ? ' 🎉 Hebat!' : ' 🎯';
+      teksHitung.textContent = 'Selesai: ' + selesai + ' dari ' + daftar.length + ' tugas' + pesan;
+    }
+
+    daftar.forEach(function (kartu) {
+      var kotak = kartu.querySelector('input[type="checkbox"]');
+      var status = kartu.querySelector('.status');
+      var kunci = 'daftar-' + kartu.querySelector('.nomor').textContent.trim();
+
+      function terapkan(centang) {
+        kotak.checked = centang;
+        if (centang) {
+          kartu.classList.add('beres');
+          if (status) {
+            status.textContent = 'Selesai';
+            status.className = 'status selesai';
+          }
+        } else {
+          kartu.classList.remove('beres');
+          if (status) {
+            status.textContent = 'Belum dikerjakan';
+            status.className = 'status belum';
+          }
+        }
+        perbarui();
+      }
+
+      kotak.addEventListener('change', function () {
+        terapkan(kotak.checked);
+        try { localStorage.setItem(kunci, kotak.checked ? '1' : '0'); } catch (e) {}
+      });
+
+      try {
+        if (localStorage.getItem(kunci) === '1') terapkan(true);
+      } catch (e) {}
+    });
+
+    perbarui();
+  </script>
+
+</body>
+</html>
