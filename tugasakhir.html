@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistem Informasi POKLAHSAR</title>
+
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #0b5ed7;
+      --primary-dark: #073b8c;
+      --primary-light: #e7f1ff;
+      --accent: #00b4d8;
+      --bg: #f1f5fb;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --sidebar-width: 295px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ======================
+       SIDEBAR
+    ====================== */
+    .sidebar {
+      width: var(--sidebar-width);
+      height: 100vh;
+      background: linear-gradient(180deg, #0b5ed7 0%, #073882 100%);
+      color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      overflow-y: auto;
+      z-index: 1000;
+      box-shadow: 4px 0 24px rgba(7, 56, 130, 0.18);
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .sidebar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+    }
+
+    .logo {
+      padding: 26px 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    .logo-icon {
+      width: 52px;
+      height: 52px;
+      margin: 0 auto 12px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    .logo h2 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      margin-bottom: 5px;
+    }
+
+    .logo p {
+      font-size: 12.5px;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+
+    .menu {
+      padding: 18px 14px;
+    }
+
+    .menu-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: rgba(255, 255, 255, 0.55);
+      padding: 8px 14px 6px;
+      font-weight: 700;
+    }
+
+    .menu ul {
+      list-style: none;
+    }
+
+    .menu li {
+      margin-bottom: 4px;
+    }
+
+    .menu a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 14px;
+      color: rgba(255, 255, 255, 0.92);
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.25s ease;
+    }
+
+    .menu a .link-left {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .menu a .link-left i {
+      width: 18px;
+      text-align: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .menu a:hover,
+    .menu a.active-link {
+      background: rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+      transform: translateX(3px);
+    }
+
+    .chevron-icon {
+      font-size: 11px;
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    /* SUB MENU */
+    .submenu {
+      display: none;
+      margin-left: 12px;
+      margin-top: 4px;
+      padding-left: 10px;
+      border-left: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .submenu.open {
+      display: block;
+    }
+
+    .submenu li {
+      margin-bottom: 3px;
+    }
+
+    .submenu a {
+      padding: 9px 12px;
+      font-size: 13.5px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+    }
+
+    .submenu a:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .submenu.level2 {
+      margin-left: 8px;
+      background: rgba(0, 0, 0, 0.14);
+      padding: 6px;
+      border-radius: 8px;
+      border-left: none;
+    }
+
+    /* ======================
+       MAIN AREA
+    ====================== */
+    .main {
+      margin-left: var(--sidebar-width);
+      width: calc(100% - var(--sidebar-width));
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      padding: 16px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 14px rgba(15, 23, 42, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .mobile-toggle {
+      display: none;
+      background: var(--primary-light);
+      color: var(--primary);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .topbar-left h2 {
+      color: var(--primary-dark);
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .topbar-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+
+    /* CONTENT */
+    .content {
+      padding: 28px;
+      flex: 1;
+    }
+
+    /* HERO */
+    .hero {
+      background: var(--card-bg);
+      padding: 18px;
+      border-radius: 22px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+      margin-bottom: 28px;
+      border: 1px solid var(--border);
+    }
+
+    .hero-image-wrap {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #0b5ed7, #00b4d8);
+      min-height: 260px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .hero-overlay-tag {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      background: rgba(7, 56, 130, 0.85);
+      backdrop-filter: blur(6px);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-content {
+      padding: 4px 10px 10px;
+    }
+
+    .hero-content h2 {
+      color: var(--primary);
+      font-size: 25px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .hero-content p {
+      font-size: 15.5px;
+      line-height: 1.8;
+      color: #475569;
+      text-align: justify;
+      margin-bottom: 12px;
+    }
+
+    /* SECTION HEADER */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .section-header h3 {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-header h3 i {
+      color: var(--primary);
+    }
+
+    .btn-primary-outline {
+      text-decoration: none;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary-outline:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* HASIL DATA KELOMPOK (SUMMARY CARDS) */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 26px rgba(11, 94, 215, 0.1);
+      border-color: #bfd7ff;
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .bg-blue { background: #e7f1ff; color: #0b5ed7; }
+    .bg-cyan { background: #e0f7fa; color: #0096c7; }
+    .bg-emerald { background: #dcfce7; color: #16a34a; }
+    .bg-amber { background: #fef3c7; color: #d97706; }
+
+    .stat-info h4 {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .stat-info .stat-value {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .stat-info span {
+      font-size: 12px;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* HASIL TUGAS INDIVIDU (MEMBER CARDS) */
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .member-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+      transition: all 0.25s ease;
+    }
+
+    .member-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary);
+      box-shadow: 0 10px 24px rgba(11, 94, 215, 0.12);
+    }
+
+    .member-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #0b5ed7, #0096c7);
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .member-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .member-meta h4 {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .member-meta p {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .member-arrow {
+      color: var(--primary);
+      font-size: 13px;
+      opacity: 0.7;
+      transition: transform 0.25s;
+    }
+
+    .member-card:hover .member-arrow {
+      opacity: 1;
+      transform: translateX(3px);
+    }
+
+    /* FOOTER */
+    .footer {
+      padding: 20px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13.5px;
+      border-top: 1px solid var(--border);
+      background: #fff;
+    }
+
+    /* OVERLAY MOBILE */
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.45);
+      z-index: 950;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+      .sidebar.show {
+        transform: translateX(0);
+      }
+      .sidebar-overlay.show {
+        display: block;
+      }
+      .main {
+        margin-left: 0;
+        width: 100%;
+      }
+      .mobile-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .hero-image-wrap img {
+        height: 240px;
+      }
+      .topbar-badge span {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Overlay untuk mode HP -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="logo">
+      <div class="logo-icon">
+        <i class="fas fa-fish"></i>
+      </div>
+      <h2>POKLAHSAR</h2>
+      <p>Kelompok Pengolah dan Pemasar Hasil Perikanan</p>
+    </div>
+
+    <div class="menu">
+      <div class="menu-label">Navigasi Utama</div>
+      <ul>
+        <!-- MENU UTAMA -->
+        <li>
+          <a href="index.html" class="active-link">
+            <span class="link-left"><i class="fas fa-home"></i> Menu</span>
+          </a>
+        </li>
+
+        <!-- DROPDOWN INDIVIDU -->
+        <li>
+          <a href="#" onclick="toggleMenu('individuMenu', this); return false;">
+            <span class="link-left"><i class="fas fa-user"></i> Individu</span>
+            <i class="fas fa-chevron-down chevron-icon"></i>
+          </a>
+          <ul id="individuMenu" class="submenu">
+            <!-- Submenu Buku -->
+            <li>
+              <a href="#" onclick="toggleMenu('bukuMenu', this); return false;">
+                <span class="link-left"><i class="fas fa-book"></i> Buku</span>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+              </a>
+              <ul id="bukuMenu" class="submenu level2">
+                <li><a href="tamukelompok.html">Tamu Kelompok &amp; Agenda Surat</a></li>
+                <li><a href="kaskelompok.html">Kas Kelompok</a></li>
+                <li><a href="notulenrapat.html">Notulen Rapat</a></li>
+                <li><a href="ruk.html">RUK</a></li>
+                <li><a href="rub.html">RUB</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="rencanakegiatan.html">
+                <span class="link-left"><i class="fas fa-calendar-check"></i> Rencana Kegiatan</span>
+              </a>
+            </li>
+            <li>
+              <a href="produksikelompok.html">
+                <span class="link-left"><i class="fas fa-industry"></i> Produksi Kelompok &amp; Pola Produksi</span>
+              </a>
+            </li>
+            <li>
+              <a href="inventarisbarang.html">
+                <span class="link-left"><i class="fas fa-boxes-stacked"></i> Inventaris Barang</span>
+              </a>
+            </li>
+            <li>
+              <a href="iurankelompok.html">
+                <span class="link-left"><i class="fas fa-coins"></i> Iuran Kelompok</span>
+              </a>
+            </li>
+            <li>
+              <a href="pinjamananggota.html">
+                <span class="link-left"><i class="fas fa-hand-holding-dollar"></i> Pinjaman Anggota</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- DROPDOWN KELOMPOK -->
+        <li>
+          <a href="#" onclick="toggleMenu('kelompokMenu', this); return false;">
+            <span class="link-left"><i class="fas fa-users"></i> Kelompok</span>
+            <i class="fas fa-chevron-down chevron-icon"></i>
+          </a>
+          <ul id="kelompokMenu" class="submenu">
+            <li>
+              <a href="pendaftarankelompok.html">
+                <span class="link-left"><i class="fas fa-file-signature"></i> Pendaftaran Kelompok</span>
+              </a>
+            </li>
+            <li>
+              <a href="sejarahkelompok.html">
+                <span class="link-left"><i class="fas fa-landmark"></i> Sejarah Kelompok</span>
+              </a>
+            </li>
+            <li>
+              <a href="datadasarkelompok.html">
+                <span class="link-left"><i class="fas fa-database"></i> Data Dasar Kelompok</span>
+              </a>
+            </li>
+            <li>
+              <a href="dataanggotakelompok.html">
+                <span class="link-left"><i class="fas fa-address-book"></i> Data Anggota Kelompok</span>
+              </a>
+            </li>
+            <li>
+              <a href="datakomoditasperikanan.html">
+                <span class="link-left"><i class="fas fa-fish-fins"></i> Data Komoditas Perikanan</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- HASIL DATA KELOMPOK -->
+        <li>
+          <a href="hasildatakelompok.html">
+            <span class="link-left"><i class="fas fa-chart-bar"></i> Hasil Data Kelompok</span>
+          </a>
+        </li>
+
+        <!-- DROPDOWN HASIL TUGAS INDIVIDU -->
+        <li>
+          <a href="#" onclick="toggleMenu('tugasMenu', this); return false;">
+            <span class="link-left"><i class="fas fa-laptop-code"></i> Hasil Tugas Individu</span>
+            <i class="fas fa-chevron-down chevron-icon"></i>
+          </a>
+          <ul id="tugasMenu" class="submenu">
+            <!-- Ganti href="#" dengan link GitHub Pages / halaman masing-masing anggota -->
+            <li><a href="#" target="_blank">Barlianor</a></li>
+            <li><a href="#" target="_blank">Albert Clodius Vascal</a></li>
+            <li><a href="#" target="_blank">Riefa Andrianie Kurnia Putri</a></li>
+            <li><a href="#" target="_blank">Amanda Tasya Salsabila</a></li>
+            <li><a href="#" target="_blank">Izmi Agustina Nadila</a></li>
+            <li><a href="#" target="_blank">Andhara Dila Manggala Putri</a></li>
+            <li><a href="#" target="_blank">Syahmira Maulida Nayla</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Buka Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h2>Sistem Informasi POKLAHSAR</h2>
+      </div>
+      <div class="topbar-badge">
+        <i class="fas fa-user-circle"></i>
+        <span>Sosial Ekonomi Perikanan</span>
+      </div>
+    </header>
+
+    <div class="content">
+      <!-- HERO SECTION -->
+      <section class="hero">
+        <div class="hero-image-wrap">
+          <img src="fpik.jpg" alt="POKLAHSAR FPIK" onerror="this.style.display='none'">
+          <div class="hero-overlay-tag">
+            <i class="fas fa-water"></i> Digitalisasi Administrasi Perikanan
+          </div>
+        </div>
+        <div class="hero-content">
+          <h2>Selamat Datang di Sistem Informasi POKLAHSAR</h2>
+          <p>
+            POKLAHSAR (Kelompok Pengolah dan Pemasar Hasil Perikanan) merupakan kelompok masyarakat yang bergerak dalam kegiatan pengolahan dan pemasaran hasil perikanan untuk meningkatkan nilai tambah produk, memperluas pasar, dan meningkatkan kesejahteraan anggota kelompok.
+          </p>
+          <p>
+            Aplikasi ini digunakan untuk membantu pengelolaan administrasi kelompok, data anggota, keuangan, produksi, inventaris, pertemuan, pemasaran, serta penyusunan dokumen usaha secara digital sehingga lebih efektif, efisien, dan transparan.
+          </p>
+        </div>
+      </section>
+
+      <!-- TAMPILAN HASIL DATA KELOMPOK -->
+      <div class="section-header">
+        <h3><i class="fas fa-chart-pie"></i> Tampilan Hasil Data Kelompok</h3>
+        <a href="hasildatakelompok.html" class="btn-primary-outline">
+          Lihat Detail Lengkap <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <section class="stats-grid">
+        <a href="dataanggotakelompok.html" class="stat-card">
+          <div class="stat-icon bg-blue"><i class="fas fa-users"></i></div>
+          <div class="stat-info">
+            <h4>Anggota Kelompok</h4>
+            <div class="stat-value">7 Orang</div>
+            <span>Lihat Data Anggota &rarr;</span>
+          </div>
+        </a>
+
+        <a href="datakomoditasperikanan.html" class="stat-card">
+          <div class="stat-icon bg-cyan"><i class="fas fa-fish"></i></div>
+          <div class="stat-info">
+            <h4>Komoditas Perikanan</h4>
+            <div class="stat-value">Olahan &amp; Segar</div>
+            <span>Lihat Komoditas &rarr;</span>
+          </div>
+        </a>
+
+        <a href="kaskelompok.html" class="stat-card">
+          <div class="stat-icon bg-emerald"><i class="fas fa-book-open"></i></div>
+          <div class="stat-info">
+            <h4>Administrasi Buku</h4>
+            <div class="stat-value">5 Buku Aktif</div>
+            <span>Tamu, Kas, Notulen, RUK, RUB</span>
+          </div>
+        </a>
+
+        <a href="produksikelompok.html" class="stat-card">
+          <div class="stat-icon bg-amber"><i class="fas fa-industry"></i></div>
+          <div class="stat-info">
+            <h4>Produksi &amp; Kegiatan</h4>
+            <div class="stat-value">Terdata Digital</div>
+            <span>Lihat Produksi Kelompok &rarr;</span>
+          </div>
+        </a>
+      </section>
+
+      <!-- TAMPILAN HASIL TUGAS INDIVIDU -->
+      <div class="section-header">
+        <h3><i class="fas fa-laptop-code"></i> Hasil Tugas Individu</h3>
+      </div>
+
+      <section class="members-grid">
+        <!-- Ganti href="#" dengan link GitHub Pages / halaman masing-masing anggota -->
+        <a href="#" target="_blank" class="member-card">
+          <div class="member-avatar">BA</div>
+          <div class="member-meta">
+            <h4>Barlianor</h4>
+            <p><i class="fas fa-globe"></i> Tugas Individu</p>
+          </div>
+          <i class="fas fa-external-link-alt member-arrow"></i>
+        </a>
+
+        <a href="#" target="_blank" class="member-card">
+          <div class="member-avatar">AC</div>
+          <div class="member-meta">
+            <h4>Albert Clodius Vascal</h4>
+            <p><i class="fas fa-globe"></i> Tugas Individu</p>
+          </div>
+          <i class="fas fa-external-link-alt member-arrow"></i>
+        </a>
+
+        <a href="#" target="_blank" class="member-card">
+          <div class="member-avatar">RA</div>
+          <div class="member-meta">
+            <h4>Riefa Andrianie Kurnia Putri</h4>
+            <p><i class="fas fa-globe"></i> Tugas Individu</p>
+          </div>
+          <i class="fas fa-external-link-alt member-arrow"></i>
+        </a>
+
+        <a href="#" target="_blank" class="member-card">
+          <div class="member-avatar">AT</div>
+          <div class="member-meta">
+            <h4>Amanda Tasya Salsabila</h4>
+            <p><i class="fas fa-globe"></i> Tugas Individu</p>
+          </div>
+          <i class="fas fa-external-link-alt member-arrow"></i>
+        </a>
+
+        <a href="#" target="_blank" class="member-card">
+          <div class="member-avatar">IA</div>
+          <div class="member-meta">
+            <h4>Izmi Agustina Nadila</h4>
+            <p><i class="fas fa-globe"></i> Tugas Individu</p>
+          </div>
+          <i class="fas fa-external-link-alt member-arrow"></i>
+        </a>
+
+        <a href="#" target="_blank" class="member-card">
+          <div class="member-avatar">AD</div>
+          <div class="member-meta">
+            <h4>Andhara Dila Manggala Putri</h4>
+            <p><i class="fas fa-globe"></i> Tugas Individu</p>
+          </div>
+          <i class="fas fa-external-link-alt member-arrow"></i>
+        </a>
+
+        <a href="#" target="_blank" class="member-card">
+          <div class="member-avatar">SM</div>
+          <div class="member-meta">
+            <h4>Syahmira Maulida Nayla</h4>
+            <p><i class="fas fa-globe"></i> Tugas Individu</p>
+          </div>
+          <i class="fas fa-external-link-alt member-arrow"></i>
+        </a>
+      </section>
+    </div>
+
+    <footer class="footer">
+      &copy; 2026 Sistem Informasi POKLAHSAR | Fakultas Perikanan dan Ilmu Kelautan
+    </footer>
+  </div>
+
+  <script>
+    function toggleMenu(menuId, element) {
+      const menu = document.getElementById(menuId);
+      const icon = element.querySelector(".chevron-icon");
+
+      menu.classList.toggle("open");
+
+      if (menu.classList.contains("open")) {
+        icon.classList.remove("fa-chevron-down");
+        icon.classList.add("fa-chevron-up");
+      } else {
+        icon.classList.remove("fa-chevron-up");
+        icon.classList.add("fa-chevron-down");
+      }
+    }
+
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("show");
+      document.getElementById("sidebarOverlay").classList.toggle("show");
+    }
+  </script>
+</body>
+</html>
